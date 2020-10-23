@@ -254,17 +254,15 @@ function tvOptions(tv) {
         output = "Beschikt over ";
     }
 
-    let optionsPrinted = 0;
-    for (let i = 0; i < options.length; i++) {
-        if(optionsPrinted === 0){
-            output += options[i];
-        } else if(optionsPrinted < options.length - 1){
-            output = output + ", " + options[i]
+    options.map((option, i) =>{
+        if(i === 0){
+            output += option;
+        } else if(i < options.length - 1){
+            output = output + ", " + option
         } else {
-            output = output + " en " + options[i];
+            output = output + " en " + option;
         }
-        optionsPrinted++;
-    }
+    })
 
     return output;
 }
@@ -273,12 +271,12 @@ function tvOptions(tv) {
 function tvSizes(tv){
     const availableSizes = tv.availableSizes;
     output = "";
-    for (let i = 0; i < availableSizes.length; i++) {
-        output = output + availableSizes[i] + " inches (" + Math.round(availableSizes[i]*2.54) + " cm)"
+    availableSizes.map((size, i) => {
+        output = output + size + " inches (" + Math.round(size*2.54) + " cm)"
         if(i < availableSizes.length - 1){
             output += " | "
         }
-    }
+    })
     return output;
 }
 
@@ -347,19 +345,13 @@ document.getElementById('sort').onclick = function printSorted(){
     opdrachtContainer.replaceChild(newDiv, oldDiv);
 }
 
-//ambilight
-// function printAmbilightList(inventory){
-//     const ambilightTvs = getAmbilightTvs(inventory);
-//     const newDiv = getInventoryDiv(ambilightTvs);
-//     const oldDiv = document.getElementById("tvlist");
-//     opdrachtContainer.replaceChild(newDiv, oldDiv);
-// }
 
 document.getElementById('ambilight').onclick = function (){
     const ambilightTvs = getAmbilightTvs(inventory);
     const newDiv = getInventoryDiv(ambilightTvs);
     const oldDiv = document.getElementById("tvlist");
     opdrachtContainer.replaceChild(newDiv, oldDiv);
+    console.log("Toon ambilight")
 }
 
 document.getElementById('soldout').onclick = function (){
@@ -367,6 +359,7 @@ document.getElementById('soldout').onclick = function (){
     const newDiv = getInventoryDiv(soldout);
     const oldDiv = document.getElementById("tvlist");
     opdrachtContainer.replaceChild(newDiv, oldDiv);
+    console.log("Toon uitverkocht")
 }
 
 
